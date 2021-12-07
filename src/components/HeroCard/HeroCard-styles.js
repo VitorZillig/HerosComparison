@@ -27,7 +27,8 @@ export const HeroCardStyle = styled.div`
     .hero-name{
         display:flex;
         justify-content:center;
-        align-items:center
+        align-items:center;
+        
     }
 
     h2{

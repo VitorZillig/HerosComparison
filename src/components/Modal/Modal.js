@@ -1,3 +1,4 @@
+import React from 'react'
 import Dialog from '@mui/material/Dialog';
 import { getStatusWinner } from '../../data/handleHerosData';
 import { getWinner} from './getWinner';

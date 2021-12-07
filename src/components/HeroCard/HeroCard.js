@@ -1,5 +1,6 @@
-import { useState} from "react";
+import React,{ useState} from "react";
 import { HeroCardStyle } from "./HeroCard-styles";
+import MoreInfoButton from "../HeroInfosModal/MoreInfoButton";
 
 
 export const HeroCard = (props) => {
@@ -16,6 +17,7 @@ export const HeroCard = (props) => {
             <section className="hero-name">
                 <h2>
                     {props.name}
+                    <MoreInfoButton setHeroToOpenModal = {props.setHeroToOpenModal} hero = {props.heroData}/>
                 </h2>
             </section>
         </HeroCardStyle>

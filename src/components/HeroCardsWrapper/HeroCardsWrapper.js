@@ -1,23 +1,23 @@
+import React from 'react'
 import { getMainInformation } from "../../data/handleHerosData"
 import { HeroCard } from "../HeroCard/HeroCard"
 import { HeroCardsWrapperStyle } from "./HeroCardsWrapper-style"
 import { useEffect, useState } from "react"
 import {Spinner} from "../Spinner/Spinner"
 import { Modal } from "../Modal/Modal"
+import HeroInfosModal from '../HeroInfosModal/HeroInfosModal'
 
 
 export const HeroCardsWrapper = (props) => {
   
-  
-  let [herosArray, setHerosArray] = useState([])
+  const [heroToOpenModal,setHeroToOpenModal] = useState([])
   let [fighters, setFighters] = useState([])
   let [isLoading,setIsLoading] = useState(true)
 
 
 
   useEffect(() => {
-    getMainInformation().then(heros => {
-      setHerosArray(heros)
+    getMainInformation().then(_=> {
       setIsLoading(false)
     })
 
@@ -45,16 +45,21 @@ export const HeroCardsWrapper = (props) => {
       >
 
       </Modal>:''
-}
+      }
+      {
+        heroToOpenModal.length?
+        <HeroInfosModal hero = {heroToOpenModal} clearHero = {setHeroToOpenModal}/>:''
+      }
       <HeroCardsWrapperStyle>
         
      {isLoading? <Spinner />:''}
 
-        {herosArray.map(hero => {
-          if (hero.heroName.toLowerCase().includes(props.heroName.toLowerCase()))
-            return (
+          {
+          props.filteredList.map(hero=>{
+            return(
               <HeroCard
                 heroData={hero}
+                setHeroToOpenModal = {setHeroToOpenModal}
                 fightersList={fighters}
                 setFightersList={setFighters}
                 name={hero.heroName}
@@ -63,8 +68,8 @@ export const HeroCardsWrapper = (props) => {
 
               </HeroCard>
             )
+          })
         }
-        )}
       </HeroCardsWrapperStyle>
     </>
   )

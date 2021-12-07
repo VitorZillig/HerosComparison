@@ -9,13 +9,20 @@ const getTotalStatus = (obj)=>{
 
 export const getMainInformation = async()=>{
     const heroArray = await getData().then(heros=>heros)
-    return heroArray.reduce((acc,cur)=>{
+    return heroArray.reduce((acc,{id,name,images,powerstats,appearance,biography})=>{
         let obj = {
-            heroID:cur.id,
-            heroName:cur.name,
-            heroImage: cur.images.sm,
-            heroPowerStats:cur.powerstats,
-            heroTotalStats:getTotalStatus(cur.powerstats)
+            heroID:id,
+            heroName:name,
+            heroImage: images.sm,
+            heroImageMd:images.md,
+            heroPowerStats:powerstats,
+            heroTotalStats:getTotalStatus(powerstats),
+            heroParticulars:{
+                heroRace: appearance.race,
+                heroHeight:appearance.height[1],
+                heroWeight:appearance.weight[1],
+                heroPublisher:biography.publisher
+            }
         }
         acc.push(obj)
         return acc
